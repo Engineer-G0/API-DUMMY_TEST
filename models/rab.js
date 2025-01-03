@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       Rab.hasMany(models.Process, {foreignKey:'rab_id'});
       Rab.hasMany(models.History, {foreignKey:'rab_id'});
       Rab.hasMany(models.Report_s_curve, {foreignKey:'rab_id'});
+      Rab.hasMany(models.Total, {foreignKey:'rab_id'});
     }
   }
   Rab.init({

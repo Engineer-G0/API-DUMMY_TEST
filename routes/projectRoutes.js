@@ -4,6 +4,6 @@ const projectController = require('../controllers/projectController');
 const {authenticate} = require('../middlewares/authMiddleware');
 
 router.use('/create/:id', authenticate, projectController.createProject);
-router.use('/', projectController.getAllProject);
+router.use('/:id', projectController.getAllProject);
 
 module.exports = router;
