@@ -25,13 +25,20 @@ const createCompany = async (params) => {
 };
 
 
-const getAllCompany = async () => {
+const getAllCompany = async (params) => {
+    const baseUrl = params;
 
     const finCompanies = await Company.findAll();
 
     if(!finCompanies) throw new Error('No company exist');
 
-    return finCompanies;
+    const newCompanies = finCompanies.map(company => {
+        company.logo = `${baseUrl}/${company.logo}`;
+        console.log(company.logo);
+        return company;
+    })
+
+    return newCompanies;
 }
 
 

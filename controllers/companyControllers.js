@@ -21,7 +21,9 @@ const createCompany = async (req, res, next) => {
 const getAllCompany = async (req, res, next) => {
    
     try{
-        const findCompany = await companyServices.getAllCompany();
+        const baseUrl = `${req.protocol}://${req.get('host')}`;
+
+        const findCompany = await companyServices.getAllCompany(baseUrl);
         return res.status(200).json(findCompany);
 
     }catch(error){
