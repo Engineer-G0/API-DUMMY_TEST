@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       work_items: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       vol: {
         type: Sequelize.INTEGER
@@ -27,6 +27,9 @@ module.exports = {
       qty_update: {
         type: Sequelize.INTEGER
       },
+      // process:{
+      //   type: Sequelize.INTEGER
+      // },
       user: {
         type: Sequelize.STRING
       },

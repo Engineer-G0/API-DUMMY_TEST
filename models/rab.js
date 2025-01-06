@@ -20,14 +20,15 @@ module.exports = (sequelize, DataTypes) => {
   }
   Rab.init({
     group_id: DataTypes.INTEGER,
-    work_items: DataTypes.INTEGER,
+    work_items: DataTypes.STRING,
     vol: DataTypes.INTEGER,
     unit: DataTypes.STRING,
     selling_price: DataTypes.INTEGER,
     qty_update: DataTypes.INTEGER,
     user: DataTypes.STRING,
     total: DataTypes.INTEGER,
-    status: DataTypes.STRING
+    status: DataTypes.STRING,
+    process: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Rab',

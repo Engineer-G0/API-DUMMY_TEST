@@ -12,9 +12,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Total.belongsTo(models.Rab, {foreignKey: 'rab_id'});
+      Total.belongsTo(models.Group, {foreignKey: 'group_id'});
     }
   }
   Total.init({
+    group_id: DataTypes.INTEGER,
     rab_id: DataTypes.INTEGER,
     total: DataTypes.INTEGER
   }, {
