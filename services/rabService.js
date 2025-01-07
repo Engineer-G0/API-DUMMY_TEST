@@ -59,12 +59,89 @@ const createRab = async (params) => {
 const getAllRab = async () => {
     const rab = await Rab.findAll();
     
+    if(!rab) throw new Error('No rab exist');
+
+    return rab;
+}
+
+const getRabByGrupId = async (params) => {
+    const group_id = params;
+
+    const rab = await Rab.findAll({
+        where:{
+            group_id
+        }
+    });
+
     if(!rab) throw new Error('Rab not found');
 
     return rab;
 }
 
+const updateRab = async (params) => {
+    const {id, 
+        work_items,
+        vol,
+        unit,
+        selling_price,
+        qty_update,
+        process
+        } = params;
+
+    const checkRab = await Rab.findOne({
+        where:{
+            id
+        }
+    });
+
+    if(!checkRab) throw new Error('Rab not found');
+
+    const update = await Rab.update(
+        {
+            work_items,
+            vol,
+            unit,
+            selling_price,
+            qty_update,
+            process
+        },
+        {
+            where:{
+                id
+            }
+        }
+    );
+
+    if(!update) throw new Error('Failed Update Rab');
+
+    const findRab = await Rab.findOne({
+        where:{
+            id
+        }
+    });
+
+    return findRab;
+}
+
+const deleteRab = async (params) => {
+    const id = params;
+
+    const rab = await Rab.destroy({
+        where:{
+            id
+        }
+    });
+
+    if(!rab) throw new Error('Rab not found');
+
+    return{message:'delete success'};
+}
+
+
 module.exports = {
     createRab,
-    getAllRab
+    getAllRab,
+    getRabByGrupId,
+    updateRab,
+    deleteRab
 }
