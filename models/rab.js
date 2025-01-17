@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     user: DataTypes.STRING,
     total: DataTypes.INTEGER,
     status: DataTypes.STRING,
-    process: DataTypes.INTEGER
+    process: DataTypes.FLOAT
   }, {
     sequelize,
     modelName: 'Rab',

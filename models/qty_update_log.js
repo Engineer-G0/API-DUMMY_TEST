@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Process extends Model {
+  class Qty_update_log extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,15 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Process.belongsTo(models.Rab, {foreignKey:'rab_id'});
+      Qty_update_log.belongsTo(models.Qty_update_log, {foreignKey: 'daily_id'});
     }
   }
-  Process.init({
-    rab_id: DataTypes.INTEGER,
-    process: DataTypes.FLOAT
+  Qty_update_log.init({
+    daily_id: DataTypes.INTEGER,
+    qty_update: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Process',
+    modelName: 'Qty_update_log',
   });
-  return Process;
+  return Qty_update_log;
 };

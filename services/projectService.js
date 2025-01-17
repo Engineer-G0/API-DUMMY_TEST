@@ -1,50 +1,56 @@
-const {Project} = require('../models');
-const {Type_report_s_curve} = require('../models');
+const {Project, Type_report_s_curve} = require('../models');
 
 const createProject = async (params) => {
-    const{company_id,
-        name, 
-        description, 
-        start_date, 
-        end_date, 
-        created_by} = params;
+    try{
 
-    const checkProject = await Project.findOne({
-        where:{
-            name
-        }
-    });
+        const{company_id,
+            name, 
+            description, 
+            start_date, 
+            end_date,   
+            created_by} = params;
     
-    if(checkProject) throw new Error('Project already existed');
+        const checkProject = await Project.findOne({
+            where:{
+                name
+            }
+        });
+        
+        if(checkProject) throw new Error('Project already existed');
+        
+        const project = await Project.create({
+            company_id,
+            name,
+            description,
+            start_date,
+            end_date,
+            created_by
+        });
+        
+        if(!project) throw new Error('Failed create project');
+        
+        const type_reports = [
+            'List RAB',
+            'General RAB',
+            'History RAB Update',
+            'Daily Progress Actual'
+        ];
     
-    const project = await Project.create({
-        company_id,
-        name,
-        description,
-        start_date,
-        end_date,
-        created_by
-    });
+        await Promise.all(
+            type_reports.map((type_report) => (
+                Type_report_s_curve.create({
+                    type_report,
+                    project_id:project.id
+                })
+            )
+        ));
     
-    if(!project) throw new Error('Failed create project');
-    
-    const type_reports = [
-        'List RAB',
-        'General RAB',
-        'History RAB Update',
-        'Daily Progress Actual'
-    ];
-
-    await Promise.all(
-        type_reports.map((type_report) => (
-            Type_report_s_curve.create({
-                type_report,
-                project_id:project.id
-            })
-        )
-    ));
-
-    return project;
+        return {
+            project
+        };
+    } catch(error){
+        throw new Error(error.message);
+    }
 }
 
 const getAllProject = async (params) => {

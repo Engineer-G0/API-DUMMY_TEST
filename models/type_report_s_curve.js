@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Type_report_s_curve.belongsTo(models.Project, {foreignKey: 'project_id'});
-      Type_report_s_curve.hasMany(models.Group, {foreignKey:'type_report_s_curve_id'});
     }
   }
   Type_report_s_curve.init({

@@ -1,4 +1,5 @@
-const {Group, Type_report_s_curve, Project} = require('../models');
+const {Group, Type_report_s_curve, Project, Daily} = require("../models");
+const dayjs = require("dayjs");
 
 const createGroup = async (params) => {
     const{id, group_name} = params;
@@ -27,6 +28,23 @@ const createGroup = async (params) => {
     });
 
     if(!group) throw new Error('Failed create group');
+
+    const getProject = await Project.findOne({
+        where:{
+            id:group.project_id
+        }
+    });
+
+    const startDate = dayjs(getProject.start_date);
+    const endDate = dayjs(getProject.end_date);
+
+    const days = endDate.diff(startDate, "day");
+
+    for(let i = 1; i <= days; i++){
+        await Daily.create({
+            group_id:group.id
+        });
+    }
 
     return group;
 }

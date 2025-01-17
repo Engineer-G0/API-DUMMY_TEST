@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Delay extends Model {
+  class Last_qty_update extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,16 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Delay.belongsTo(models.Project, {foreignKey:'project_id'});
+      Last_qty_update.belongsTo(models.Daily, {foreignKey: 'daily_id'})
     }
   }
-  Delay.init({
-    expected_deadline: DataTypes.INTEGER,
-    project_id: DataTypes.INTEGER,
-    delay: DataTypes.INTEGER
+  Last_qty_update.init({
+    daily_id: DataTypes.INTEGER,
+    last_qty_update: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Delay',
+    modelName: 'Last_qty_update',
   });
-  return Delay;
+  return Last_qty_update;
 };

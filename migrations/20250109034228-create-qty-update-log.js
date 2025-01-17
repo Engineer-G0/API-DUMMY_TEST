@@ -2,18 +2,18 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Processes', {
+    await queryInterface.createTable('Qty_update_logs', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      rab_id: {
+      daily_id: {
         type: Sequelize.INTEGER
       },
-      process: {
-        type: Sequelize.FLOAT
+      qty_update: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -26,6 +26,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Processes');
+    await queryInterface.dropTable('Qty_update_logs');
   }
 };

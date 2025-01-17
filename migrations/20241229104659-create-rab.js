@@ -27,9 +27,6 @@ module.exports = {
       qty_update: {
         type: Sequelize.INTEGER
       },
-      // process:{
-      //   type: Sequelize.INTEGER
-      // },
       user: {
         type: Sequelize.STRING
       },
