@@ -12,6 +12,9 @@ module.exports = {
       daily_id: {
         type: Sequelize.INTEGER
       },
+      group_id: {
+        type: Sequelize.INTEGER
+      },
       last_qty_update: {
         type: Sequelize.INTEGER
       },

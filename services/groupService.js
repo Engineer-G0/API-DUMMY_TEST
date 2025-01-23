@@ -42,8 +42,10 @@ const createGroup = async (params) => {
 
     for(let i = 1; i <= days; i++){
         await Daily.create({
-            group_id:group.id
+            group_id:group.id,
+            day_at:i,
         });
+        console.log(i);
     }
 
     return group;

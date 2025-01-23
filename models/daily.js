@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Daily.init({
     group_id: DataTypes.INTEGER,
+    day_at: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Daily',

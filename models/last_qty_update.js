@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Last_qty_update.init({
     daily_id: DataTypes.INTEGER,
+    group_id: DataTypes.INTEGER,
     last_qty_update: DataTypes.INTEGER
   }, {
     sequelize,

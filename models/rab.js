@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     vol: DataTypes.INTEGER,
     unit: DataTypes.STRING,
     selling_price: DataTypes.INTEGER,
-    qty_update: DataTypes.INTEGER,
+    // qty_update: DataTypes.INTEGER,
     user: DataTypes.STRING,
     total: DataTypes.INTEGER,
     status: DataTypes.STRING,

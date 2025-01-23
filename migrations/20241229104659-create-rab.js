@@ -24,9 +24,9 @@ module.exports = {
       selling_price: {
         type: Sequelize.INTEGER
       },
-      qty_update: {
-        type: Sequelize.INTEGER
-      },
+      // qty_update: {
+      //   type: Sequelize.INTEGER
+      // },
       user: {
         type: Sequelize.STRING
       },

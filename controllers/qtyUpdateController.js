@@ -1,13 +1,13 @@
 const qtyUpdate = require('../services/qtyUpdateLog');
 
-const createQty = async (req, res, next) => {
+const updateQty = async (req, res, next) => {
     try{
         const params = {
-            daily_id:req.params.id,
+            qty_update_id:req.params.id,
             qty_update:req.body.qty_update
         }
 
-        const qty = await qtyUpdate.createQtyUpdate(params);
+        const qty = await qtyUpdate.updateQty(params);
 
         res.status(201).json(qty);
 
@@ -26,6 +26,6 @@ const getQtyUpdate = async (req, res, next) => {
 }
 
 module.exports = {
-    createQty,
+    updateQty,
     getQtyUpdate
 }

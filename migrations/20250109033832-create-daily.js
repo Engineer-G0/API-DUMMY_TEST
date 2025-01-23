@@ -12,6 +12,9 @@ module.exports = {
       group_id: {
         type: Sequelize.INTEGER
       },
+      day_at: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

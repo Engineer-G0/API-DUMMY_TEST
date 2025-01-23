@@ -1,5 +1,4 @@
-const { Rab, Total, User, Group, Project, Daily } = require("../models");
-const dayjs = require("dayjs");
+const { Rab, Total, User, Last_qty_update} = require("../models");
 
 const createRab = async (params) => {
   const {
@@ -79,7 +78,7 @@ const getAllRab = async () => {
 };
 
 const getRabByGrupId = async (params) => {
-  const group_id = params;
+  const group_id = parseInt(params);
 
   const rab = await Rab.findAll({
     where: {
@@ -89,7 +88,20 @@ const getRabByGrupId = async (params) => {
 
   if (!rab) throw new Error("Rab not found");
 
-  return rab;
+  let getQtyUpdate = await Last_qty_update.findAll({
+    where:{
+      group_id
+    }
+  });
+
+  if(!getQtyUpdate.length){
+    getQtyUpdate = Array(rab.length).fill(0);
+  }
+
+  return {
+    rab,
+    getQtyUpdate
+  };
 };
 
 const updateRab = async (params) => {

@@ -1,72 +1,112 @@
-const {Last_qty_update, Rab, Daily, Qty_update_Log} = require('../models');
+const {Last_qty_update, Rab, Daily, Qty_update_log} = require('../models');
 
 // 1. kalo daily_id nya 1 maka last qty ambil dari list rab(sama dengan 0).
 
 // 2. kalo daily_id nya lebih dari 1 maka last qty nya ambil dari last qty yang punya daily_id n-1 + qty_update yang punya daily_id n-1
 
-const getAllLastQtyUpdate = async (params) => {
+const getLastQtyUpdate = async (params) => {
     const daily_id = parseInt(params);
 
-    if(daily_id === 1){
-        const getGroupId = await Daily.findAll({
+    const getDaily = await Daily.findOne({
+        where:{
+            id:daily_id
+        }
+    });
+
+    if(getDaily.day_at === 1){
+
+        const last_qty_update = 0;
+
+        const getRabByGroupId = await Rab.findAll({
+            where:{
+                group_id:getDaily.group_id
+            }
+        });
+
+        const rabLength = getRabByGroupId.length;
+
+        const qty_update = await Last_qty_update.findAll({
+            where:{
+                daily_id
+            }
+        });
+        
+        if(!qty_update.length){
+            for(let i = 1; i <= rabLength; i++){
+                await Last_qty_update.create({
+                    daily_id,
+                    group_id:getDaily.group_id,
+                    last_qty_update
+                });
+            }
+        }
+
+        const getLasqty = await Last_qty_update.findAll({
+            where:{
+                group_id:getDaily.group_id
+            }
+        });
+
+        return getLasqty;
+
+    }else if(getDaily.day_at > 1){
+
+        const dailyIdFix = daily_id - 1
+
+        const getGroupId = await Daily.findOne({
             where:{
                 id:daily_id
             }
         });
 
-        const group_id = getGroupId[0].group_id;
+        const group_id = getGroupId.group_id;
 
-        const getQtyUpdateFromRab = await Rab.findAll({
-            where:{                                            
-                group_id:group_id,
+        console.log(group_id);
+
+        const lastQty = await Last_qty_update.findAll({
+            where:{
+                daily_id:dailyIdFix
             }
         });
 
-        getQtyUpdateFromRab.map(async (qtyUpdate) => {
+        const qtyUpdate = await Qty_update_log.findAll({
+            where:{
+                daily_id:dailyIdFix
+            }
+        });
+
+        const total = lastQty[0].dataValues.last_qty_update + qtyUpdate[0].dataValues.qty_update;
+
+        const getNextLastQty = await Last_qty_update.findAll({
+            where:{
+                daily_id,
+                group_id
+            }
+        });
+
+        console.log(getNextLastQty);
+
+        if(!getNextLastQty.length){
             await Last_qty_update.create({
-                last_qty_update:qtyUpdate.qty_update,
-                daily_id
-            }); 
-        });
+                daily_id,
+                group_id,
+                last_qty_update:total
+            });
+        }
 
-        const getQtyUpdate = await Last_qty_update.findAll({
+        const getNextLastQtyz = await Last_qty_update.findAll({
             where:{
-                daily_id
+                group_id
             }
         });
 
-        return getQtyUpdate;
+        return getNextLastQtyz;
 
-    }else if(daily_id > 1){
-
-        const dailyIdFix = daily_id - 1
-
-        console.log(dailyIdFix);
-
-        const lastQty = await Last_qty_update.findOne({
-            where:{
-                daily_id:dailyIdFix
-            }
-        });
-
-        console.log(">>>>>>>>>>>>>>>",lastQty);
-
-        const qtyUpdate = await Qty_update_Log.findOne({
-            where:{
-                daily_id:dailyIdFix
-            }
-        });
-
-        console.log("^^^^^^^^^^^^^^^",qtyUpdate);
-
-        const total = lastQty + qtyUpdate;
-
-        return total;
     }else{
         throw new Error('Id not found');
     }
 }
 
 module.exports = {
-    getAllLastQtyUpdate
+    getLastQtyUpdate
 }
