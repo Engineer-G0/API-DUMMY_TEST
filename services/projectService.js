@@ -7,8 +7,8 @@ const createProject = async (params) => {
             name, 
             description, 
             start_date, 
-            end_date,   
-            created_by} = params;
+            end_date,
+            } = params;
     
         const checkProject = await Project.findOne({
             where:{
@@ -24,7 +24,6 @@ const createProject = async (params) => {
             description,
             start_date,
             end_date,
-            created_by
         });
         
         if(!project) throw new Error('Failed create project');

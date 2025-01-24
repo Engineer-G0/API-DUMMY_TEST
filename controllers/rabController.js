@@ -4,7 +4,7 @@ const createRab = async (req, res, next) => {
     try{
         const params = {
             ...req.body,
-            user_id:req.user.id,
+            // user_id:req.user.id,
             group_id:req.params.id,
         }
 

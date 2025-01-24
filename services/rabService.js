@@ -2,7 +2,7 @@ const { Rab, Total, User, Last_qty_update} = require("../models");
 
 const createRab = async (params) => {
   const {
-    user_id,
+    // user_id,
     group_id,
     work_items,
     vol,
@@ -14,11 +14,11 @@ const createRab = async (params) => {
 
   // Cek apakah Rab sudah ada
   const checkRab = await Rab.findOne({ where: { work_items } });
-  const uploader = await User.findOne({
-    where: {
-      id: user_id,
-    },
-  });
+  // const uploader = await User.findOne({
+  //   where: {
+  //     id: user_id,
+  //   },
+  // });
 
   if (checkRab) throw new Error("Rab already exists");
 
@@ -30,7 +30,7 @@ const createRab = async (params) => {
     unit,
     selling_price,
     qty_update: 0,
-    user: uploader.username,
+    // user: uploader.username,
     total: 0,
     status,
     process,

@@ -4,8 +4,8 @@ const createProject = async (req, res, next) => {
     try{
         const params = {
             ...req.body,
-            company_id:req.params.id,
-            created_by:req.user.id
+            company_id:req.params.id
+            // created_by:req.user.id
         };
 
         const project = await projectService.createProject(params);

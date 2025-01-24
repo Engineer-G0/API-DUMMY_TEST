@@ -11,9 +11,7 @@ const getAllTypeReport = async (params) => {
 
     if(!type_reports) throw new Error('No type report exist');
 
-    return type_reports.map((type_report) => {
-        return type_report.type_report
-    });
+    return type_reports;
 }
 
 module.exports = {
