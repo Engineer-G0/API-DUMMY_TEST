@@ -91,7 +91,9 @@ const getRabByGrupId = async (params) => {
   let getQtyUpdate = await Last_qty_update.findAll({
     where:{
       group_id
-    }
+    },
+    order: [['id', 'DESC']],
+    limit:1,
   });
 
   if(!getQtyUpdate.length){
