@@ -1,8 +1,6 @@
-const { Rab, Total, User, Last_qty_update} = require("../models");
-
+const { Rab, Total, Last_qty_update, Group} = require("../models");
 const createRab = async (params) => {
   const {
-    // user_id,
     group_id,
     work_items,
     vol,
@@ -12,25 +10,34 @@ const createRab = async (params) => {
     process,
   } = params;
 
+  const getGroup = await Group.findAll({
+    where:{
+      id:parseInt(group_id)
+    }
+  });
+
+  const group = getGroup[0];
+
   // Cek apakah Rab sudah ada
-  const checkRab = await Rab.findOne({ where: { work_items } });
-  // const uploader = await User.findOne({
-  //   where: {
-  //     id: user_id,
-  //   },
-  // });
+  const checkRab = await Rab.findOne({ 
+    where: { 
+      work_items 
+    } 
+  });
 
   if (checkRab) throw new Error("Rab already exists");
 
   // Buat entri baru di tabel Rab
   const rab = await Rab.create({
-    group_id: parseInt(group_id),
+    group_id,
+    type_report_s_curve_id:group.type_report_s_curve_id,
+    project_id:group.project_id,
+    company_id:group.company_id,
     work_items,
     vol,
     unit,
     selling_price,
     qty_update: 0,
-    // user: uploader.username,
     total: 0,
     status,
     process,

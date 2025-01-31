@@ -6,22 +6,14 @@ const createGroup = async (params) => {
 
     const getprojectId = await Type_report_s_curve.findOne({
         where:{
-            id
+            id:parseInt(id)
         }
     });
 
-    if(!getprojectId.project_id) throw new Error('Project not found');
-
-    const getCompanyId = await Project.findOne({
-        where:{
-            id:getprojectId.project_id
-        }
-    });
-
-    if(!getCompanyId) throw new Error('Company not found');
+    if(!getprojectId.project_id) throw new Error('Project or Company not found');
 
     const group = await Group.create({
-        company_id:getCompanyId.company_id,
+        company_id:getprojectId.company_id,
         project_id:getprojectId.project_id,
         type_report_s_curve_id:parseInt(id),
         group_name,

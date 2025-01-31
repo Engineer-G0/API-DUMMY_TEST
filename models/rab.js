@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Rab.belongsTo(models.Group, {foreignKey:'group_id'});
+      Rab.belongsTo(models.Type_report_s_curve, {foreignKey: 'type_report_s_curve_id'});
+      Rab.belongsTo(models.Project, {foreignKey: 'project_id'});
+      Rab.belongsTo(models.Company, {foreignKey: 'company_id'});
       Rab.hasMany(models.Process, {foreignKey:'rab_id'});
       Rab.hasMany(models.History, {foreignKey:'rab_id'});
       Rab.hasMany(models.Report_s_curve, {foreignKey:'rab_id'});
@@ -20,11 +23,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   Rab.init({
     group_id: DataTypes.INTEGER,
+    type_report_s_curve_id: DataTypes.INTEGER,
+    project_id: DataTypes.INTEGER,
+    company_id: DataTypes.INTEGER,
     work_items: DataTypes.STRING,
     vol: DataTypes.INTEGER,
     unit: DataTypes.STRING,
     selling_price: DataTypes.INTEGER,
-    // qty_update: DataTypes.INTEGER,
     user: DataTypes.STRING,
     total: DataTypes.INTEGER,
     status: DataTypes.STRING,

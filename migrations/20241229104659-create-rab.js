@@ -12,6 +12,15 @@ module.exports = {
       group_id: {
         type: Sequelize.INTEGER
       },
+      type_report_s_curve_id: {
+        type: Sequelize.INTEGER
+      },
+      project_id: {
+        type: Sequelize.INTEGER
+      },
+      company_id: {
+        type: Sequelize.INTEGER
+      },
       work_items: {
         type: Sequelize.STRING
       },
@@ -24,9 +33,6 @@ module.exports = {
       selling_price: {
         type: Sequelize.INTEGER
       },
-      // qty_update: {
-      //   type: Sequelize.INTEGER
-      // },
       user: {
         type: Sequelize.STRING
       },

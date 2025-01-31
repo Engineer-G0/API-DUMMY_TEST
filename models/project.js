@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Project.hasMany(models.Rab, {foreignKey: 'project_id'});
       Project.hasMany(models.History, {foreignKey: 'project_id'});
       Project.hasMany(models.Group, {foreignKey: 'project_id'});
       Project.hasMany(models.Type_report_s_curve, {foreignKey: 'project_id'});

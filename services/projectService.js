@@ -39,7 +39,8 @@ const createProject = async (params) => {
             type_reports.map((type_report) => (
                 Type_report_s_curve.create({
                     type_report,
-                    project_id:project.id
+                    project_id:project.id,
+                    company_id:project.company_id
                 })
             )
         ));

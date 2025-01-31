@@ -61,7 +61,7 @@ const getLastQtyUpdate = async (params) => {
 
         const group_id = getGroupId.group_id;
 
-        console.log(group_id);
+        console.log(">>>>>>>>",group_id);
 
         const lastQty = await Last_qty_update.findAll({
             where:{
@@ -74,6 +74,8 @@ const getLastQtyUpdate = async (params) => {
                 daily_id:dailyIdFix
             }
         });
+
+        console.log(">>>>>>>",qtyUpdate);
 
         const total = lastQty[0].dataValues.last_qty_update + qtyUpdate[0].dataValues.qty_update;
 
@@ -96,7 +98,8 @@ const getLastQtyUpdate = async (params) => {
 
         const getNextLastQtyz = await Last_qty_update.findAll({
             where:{
-                group_id
+                group_id,
+                daily_id
             }
         });
 

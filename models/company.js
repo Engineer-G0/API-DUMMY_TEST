@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       Company.hasMany(models.History, {foreignKey: 'company_id'});
       Company.hasMany(models.Group, {foreignKey: 'company_id'});
       Company.hasMany(models.Project, {foreignKey: 'company_id'});
+      Company.hasMany(models.Type_report_s_curve, {foreignKey: 'company_id'});
+      Company.hasMany(models.Daily, {foreignKey: 'company_id'});
     }
   }
   Company.init({

@@ -12,6 +12,15 @@ module.exports = {
       group_id: {
         type: Sequelize.INTEGER
       },
+      type_report_s_curve_id: {
+        type: Sequelize.INTEGER
+      },
+      project_id: {
+        type: Sequelize.INTEGER
+      },
+      company_id: {
+        type: Sequelize.INTEGER
+      },
       day_at: {
         type: Sequelize.INTEGER
       },

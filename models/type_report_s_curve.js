@@ -12,11 +12,16 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Type_report_s_curve.belongsTo(models.Project, {foreignKey: 'project_id'});
+      Type_report_s_curve.belongsTo(models.Company, {foreignKey: 'company_id'});
+      Type_report_s_curve.hasMany(models.Group, {foreignKey: 'type_report_s_curve_id'});
+      Type_report_s_curve.hasMany(models.Rab, {foreignKey: 'type_report_s_curve_id'});
+      Type_report_s_curve.hasMany(models.Daily, {foreignKey: 'type_report_s_curve_id'});
     }
   }
   Type_report_s_curve.init({
     type_report: DataTypes.STRING,
-    project_id: DataTypes.INTEGER
+    project_id: DataTypes.INTEGER,
+    company_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Type_report_s_curve',

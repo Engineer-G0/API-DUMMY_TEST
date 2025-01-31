@@ -15,6 +15,9 @@ module.exports = {
       project_id: {
         type: Sequelize.INTEGER
       },
+      company_id: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
